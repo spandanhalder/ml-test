@@ -1,0 +1,10 @@
+1. GPU Execution
+
+Time Taken = 0:02:59.350942
+
+
+---------------------------------------
+
+2. CPU Execution
+
+Time Taken = 0:11:57.804936
