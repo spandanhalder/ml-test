@@ -1,3 +1,6 @@
+# Force CPU Execution
+import os
+#os.environ["CUDA_VISIBLE_DEVICES"]="-1"
 # Importing Tensorflow
 import tensorflow as tf
 # Import TensorFlow Datasets
@@ -12,6 +15,7 @@ from additionalfunctions import normalize
 import math
 import numpy as np
 #import matplotlib.pyplot as plt
+from datetime import datetime
 
 dataset, metadata = tfds.load('fashion_mnist', as_supervised=True, with_info=True)
 train_dataset, test_dataset = dataset['train'], dataset['test']
@@ -59,8 +63,14 @@ BATCH_SIZE = 32
 train_dataset = train_dataset.cache().repeat().shuffle(num_train_dataset).batch(BATCH_SIZE)
 test_dataset = test_dataset.cache().batch(BATCH_SIZE)
 
+startTime = datetime.now()
+
 # Epochs = 10
 model.fit(train_dataset, epochs=10, steps_per_epoch=math.ceil(num_train_dataset/BATCH_SIZE))
+
+endTime = datetime.now()
+
+print("Time Taken = ",endTime-startTime)
 
 test_loss, test_accuracy = model.evaluate(test_dataset, steps=math.ceil(num_test_dataset/32))
 print('Accuracy On Test Dataset = ', test_accuracy)
